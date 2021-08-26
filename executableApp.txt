@@ -1,0 +1,5 @@
+step1: install pyinstaller
+    pip3 install pyinstaller
+
+step2: write a command under your project directory where the script is
+    pyinstaller --onefile --windowed  frontend.py
