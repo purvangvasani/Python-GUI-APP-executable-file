@@ -1,8 +1,11 @@
 from tkinter import *
-import backend
+from backend import Database
+
+database = Database()
 
 window = Tk()  # This creates a window object
-window.wm_title('BookStore') #Gives title to the window
+window.wm_title('BookStore')  # Gives title to the window
+
 
 def get_selected_row(event):
     try:
@@ -23,7 +26,7 @@ def get_selected_row(event):
 
 def view_command():
     list.delete(0, END)
-    data = backend.view()
+    data = database.view()
     if len(data) > 0:
         for row in data:
             list.insert(END, row)
@@ -33,7 +36,7 @@ def view_command():
 
 def search_command():
     list.delete(0, END)
-    data = backend.search(e1_title.get(), e2_author.get(),
+    data = database.search(e1_title.get(), e2_author.get(),
                           e3_year.get(), e4_isbn.get())
     if len(data) > 0:
         for row in data:
@@ -43,10 +46,10 @@ def search_command():
 
 
 def add_command():
-    backend.insert(e1_title.get(), e2_author.get(),
+    database.insert(e1_title.get(), e2_author.get(),
                    e3_year.get(), e4_isbn.get())
     list.delete(0, END)
-    data = backend.view()
+    data = database.view()
     if len(data) > 0:
         for row in data:
             list.insert(END, row)
@@ -56,8 +59,8 @@ def add_command():
 
 def delete_command():
     list.delete(0, END)
-    backend.delete(selected_tuple[0])
-    data = backend.view()
+    database.delete(selected_tuple[0])
+    data = database.view()
     if len(data) > 0:
         for row in data:
             list.insert(END, row)
@@ -67,9 +70,11 @@ def delete_command():
 
 def update_command():
     list.delete(0, END)
-    backend.update(selected_tuple[0], e1_title.get(),
+    print(list)
+    print(selected_tuple[0], e1_title.get())
+    database.update(selected_tuple[0], e1_title.get(),
                    e2_author.get(), e3_year.get(), e4_isbn.get())
-    data = backend.view()
+    data = database.view()
     if len(data) > 0:
         for row in data:
             list.insert(END, row)
